@@ -1,11 +1,10 @@
+import csv
 import os
 from dataclasses import dataclass
 from math import radians, sin, cos, asin, sqrt
-
-import csv
 from typing import Any
 
-from ryanair.types import Flight
+from models.types import Flight
 
 AIRPORTS = None
 
@@ -26,9 +25,9 @@ def load_airports():
     AIRPORTS = {}
     try:
         with open(
-            os.path.join(os.path.dirname(__file__), "airports.csv"),
-            newline="",
-            encoding="utf8",
+                os.path.join(os.path.dirname(__file__), "airports.csv"),
+                newline="",
+                encoding="utf8",
         ) as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:

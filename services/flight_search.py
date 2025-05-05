@@ -1,5 +1,6 @@
-from ryanair.ryanair import Ryanair
 from models.flight import Flight
+from models.ryanair import Ryanair
+
 
 class FlightSearch:
     def __init__(self, currency="GBP"):

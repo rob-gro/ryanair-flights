@@ -1,7 +1,3 @@
-"""
-This module allows you to retrieve the cheapest flights, with or without return flights, within a fixed set of dates.
-This is done directly through Ryanair's API, and does not require an API key.
-"""
 import logging
 import sys
 from datetime import datetime, date, time
@@ -9,8 +5,8 @@ from typing import Union, Optional
 
 import backoff
 
-from ryanair.SessionManager import SessionManager
-from ryanair.types import Flight, Trip
+from models.types import Flight, Trip
+from services.session_manager import SessionManager
 
 logger = logging.getLogger("ryanair")
 if not logger.handlers:
@@ -30,7 +26,6 @@ class RyanairException(Exception):
         super().__init__(f"Ryanair API: {message}")
 
 
-# noinspection PyBroadException
 class Ryanair:
     BASE_SERVICES_API_URL = "https://services-api.ryanair.com/farfnd/v4/"
 
@@ -42,16 +37,16 @@ class Ryanair:
         self.session = self.session_manager.get_session()
 
     def get_cheapest_flights(
-        self,
-        airport: str,
-        date_from: Union[datetime, date, str],
-        date_to: Union[datetime, date, str],
-        destination_country: Optional[str] = None,
-        custom_params: Optional[dict] = None,
-        departure_time_from: Union[str, time] = "00:00",
-        departure_time_to: Union[str, time] = "23:59",
-        max_price: Optional[int] = None,
-        destination_airport: Optional[str] = None,
+            self,
+            airport: str,
+            date_from: Union[datetime, date, str],
+            date_to: Union[datetime, date, str],
+            destination_country: Optional[str] = None,
+            custom_params: Optional[dict] = None,
+            departure_time_from: Union[str, time] = "00:00",
+            departure_time_to: Union[str, time] = "23:59",
+            max_price: Optional[int] = None,
+            destination_airport: Optional[str] = None,
     ):
         query_url = "".join((Ryanair.BASE_SERVICES_API_URL, "oneWayFares"))
 
@@ -83,20 +78,20 @@ class Ryanair:
         return []
 
     def get_cheapest_return_flights(
-        self,
-        source_airport: str,
-        date_from: Union[datetime, date, str],
-        date_to: Union[datetime, date, str],
-        return_date_from: Union[datetime, date, str],
-        return_date_to: Union[datetime, date, str],
-        destination_country: Optional[str] = None,
-        custom_params: Optional[dict] = None,
-        outbound_departure_time_from: Union[str, time] = "00:00",
-        outbound_departure_time_to: Union[str, time] = "23:59",
-        inbound_departure_time_from: Union[str, time] = "00:00",
-        inbound_departure_time_to: Union[str, time] = "23:59",
-        max_price: Optional[int] = None,
-        destination_airport: Optional[str] = None,
+            self,
+            source_airport: str,
+            date_from: Union[datetime, date, str],
+            date_to: Union[datetime, date, str],
+            return_date_from: Union[datetime, date, str],
+            return_date_to: Union[datetime, date, str],
+            destination_country: Optional[str] = None,
+            custom_params: Optional[dict] = None,
+            outbound_departure_time_from: Union[str, time] = "00:00",
+            outbound_departure_time_to: Union[str, time] = "23:59",
+            inbound_departure_time_from: Union[str, time] = "00:00",
+            inbound_departure_time_to: Union[str, time] = "23:59",
+            max_price: Optional[int] = None,
+            destination_airport: Optional[str] = None,
     ):
         query_url = "".join((Ryanair.BASE_SERVICES_API_URL, "roundTripFares"))
 

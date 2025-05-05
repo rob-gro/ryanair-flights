@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+
 class DateUtils:
     @staticmethod
     def generate_dates(start_date, end_date):

@@ -1,6 +1,7 @@
 import csv
 import os
 
+
 class DataManager:
     @staticmethod
     def save_to_csv(data, filename):

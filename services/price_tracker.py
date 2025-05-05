@@ -1,8 +1,9 @@
 import csv
 import os
 from datetime import datetime
+
 from models.flight import Flight
-from constans import DIRECTION_OUTBOUND, DIRECTION_INBOUND
+
 
 class PriceTracker:
     def __init__(self, filename="price_history.csv"):
@@ -29,7 +30,7 @@ class PriceTracker:
         delimiter = self.detect_delimiter(self.filename)
 
         results = []
-        with open(self.filename, mode="r", encoding="utf-8-sig") as file:
+        with open(self.filename, mode="r", encoding="utf-8") as file:
             lines = file.readlines()
             if not lines:
                 return []
@@ -63,7 +64,7 @@ class PriceTracker:
                             if any(entry.get("Direction", "") == d for d in possible_directions)]
 
         if matching_entries:
-            return matching_entries[-1]  # Zwracamy ostatni wpis
+            return matching_entries[-1]
         return {}
 
     def save_price_history(self, flight: Flight, direction: str):
@@ -79,14 +80,11 @@ class PriceTracker:
                     entry["Flight Number"] == flight.flight_number and
                     entry["Date"] == str(flight.departure_time) and
                     float(entry["Price"]) == flight.price):
-                # print(f"⚠️ Cena dla {direction} ({flight.price} {flight.currency}) nie zmieniła się – nie zapisuję.")
-                return  # Jeśli już mamy taki sam rekord, nie zapisujemy
+                return
 
-        # Jeśli dotarliśmy tutaj, oznacza to że nie znaleźliśmy duplikatu
-        with open(self.filename, mode="a", newline="", encoding="utf-8-sig") as file:
+        with open(self.filename, mode="a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
 
-            # Jeśli plik nie istnieje, dodajemy nagłówki
             if not file_exists:
                 writer.writerow(["Timestamp", "Direction", "Date", "Flight Number", "Price", "Currency"])
 
@@ -99,4 +97,5 @@ class PriceTracker:
                 flight.currency
             ])
 
-        print(f"✅ Zapisano nową cenę dla {direction}: {flight.price} {flight.currency} dla lotu {flight.departure_time}")
+        print(
+            f"✅ Zapisano nową cenę dla {direction}: {flight.price:.2f} {flight.currency} dla lotu {flight.departure_time}")
