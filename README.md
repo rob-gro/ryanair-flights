@@ -1,59 +1,104 @@
-## How It Works
-The application starts by loading a database of airports and their geographical coordinates. Users specify source and destination airports along with date ranges for both outbound and return flights. The program then:
+# Ryanair Flight Search Tool
 
-1. Communicates with the Ryanair API to search for available flights
-2. Retrieves and updates pricing information for each flight
-3. Sorts flights by price to find the cheapest options
-4. Updates the price history database
-5. Generates visualizations of price changes over time
+Ryanair Flight Search Tool is a sophisticated system for finding, tracking, and analyzing flight prices from Ryanair. The application integrates directly with Ryanair's API to provide real-time pricing data and historical price tracking, enabling users to make informed decisions about when to book their flights for the best possible prices.
 
-## Technical Details
-- Built in Python
-- Uses the Ryanair API to retrieve flight information
-- Implements backoff strategies for API request retries
-- Stores price history in CSV format
-- Uses matplotlib for chart generation
+## 🚀 Features
 
-## Example Usage
-The main script allows users to search for flights between specific airport pairs (e.g., Edinburgh to Poznan) and displays:
-- The cheapest round-trip option with detailed information
-- The next 5 cheapest outbound flight options
-- The next 5 cheapest inbound flight options
-- A chart visualizing price changes for the selected flights over time
+### ✈️ Flight Search
+- **API Integration**: Direct communication with Ryanair's services API to fetch current flight data
+- **Flexible Date Ranges**: Search across multiple date ranges for both outbound and return flights
+- **Airport Selection**: Easily select source and destination airports
+- **Filter Options**: Filter by time of day, maximum price, and specific destinations
 
-## Future Enhancements
-- User interface for easier interaction
-- Email notifications for price drops
-- Integration with more airlines
-- Flight recommendation system based on price history patterns# Ryanair Flight Search Tool
+### 📊 Price Tracking
+- **Historical Data**: Automated recording of flight price changes over time
+- **Price Alerts**: Identify price drops and increases for specific routes
+- **Visualizations**: Interactive charts showing price trends for selected flights
+- **Data Export**: Save price history in CSV format for external analysis
 
-## Project Description
-This application is designed to find the cheapest Ryanair flights between selected airports within specified date ranges. The program allows users to monitor flight price changes over time and select the most cost-effective connections.
+### 💰 Cost Analysis
+- **Best Deals**: Automatic identification of the cheapest flight combinations
+- **Price Comparison**: Compare current prices with historical averages
+- **Distance Calculation**: Calculate the actual distance between airports
+- **Price per Kilometer**: Analyze value based on distance traveled
 
-## Key Features
-- Search for round-trip flights between specified airports
-- Track flight price history
-- Generate price change charts for selected flights
-- Display the cheapest flight options
-- Calculate distances between airports
-- Sort flights by price
+## 🛠 Technologies
 
-## Project Structure
+- **Language**: Python 3
+- **Data Processing**: Pandas for data manipulation
+- **API Communication**: Requests with backoff retry mechanism
+- **Data Visualization**: Matplotlib for generating price history charts
+- **Geospatial Calculations**: Haversine formula for accurate flight distances
+- **Data Storage**: CSV-based persistent storage for price history
 
-### `models` Package
-- `Flight` - class representing a single flight with attributes such as origin airport, destination, departure time, flight number, price, currency
-- `Ryanair` - class responsible for communicating with the Ryanair API and retrieving flight information
-- `Trip` - class representing a round-trip journey (outbound and inbound flights)
+## 🗂 Project Structure
 
-### `services` Package
-- `ChartService` - service for generating flight price charts
-- `DataManager` - manages data, saves and reads from CSV files
-- `FlightSearch` - searches for flights using the Ryanair API
-- `FlightService` - main application service, handles flight searches and price management
-- `PriceTracker` - tracks flight price history
-- `SessionManager` - manages HTTP sessions for communication with the Ryanair API
+### Key Modules
+- **API Communication**:
+  - `ryanair.py` - Core API client for Ryanair services
+  - `session_manager.py` - Managing HTTP sessions and cookies
 
-### `utils` Package
-- `airport_utils` - utility functions for loading airport data and calculating distances between airports
-- `date_utils` - date handling utilities, including date range generation
-- `flight_utils` - functions for updating flight prices based on historical data
+- **Flight Data Processing**:
+  - `flight_search.py` - Search functionality for finding available flights
+  - `flight_service.py` - Core service coordinating flight searches and price tracking
+
+- **Price Tracking**:
+  - `price_tracker.py` - Recording and analyzing price history
+  - `chart_service.py` - Generating visual representations of price trends
+
+- **Data Management**:
+  - `data_manager.py` - Handling data storage and retrieval operations
+  - `date_utils.py` - Date manipulation utilities
+
+- **Airport Information**:
+  - `airport_utils.py` - Loading airport data and calculating distances
+
+- **Data Models**:
+  - `flight.py` - Core flight data model
+  - `types.py` - Data structures representing flights and trips
+
+## 🚀 Usage
+
+The system is designed to be used from the command line:
+
+```bash
+python main.py
+```
+
+Configuration parameters can be modified directly in the main.py file:
+- Source and destination airports
+- Date ranges for outbound and return flights
+- Currency for price display
+
+## 📊 Output Examples
+
+The application provides rich output including:
+
+- Detailed information about the cheapest flight option including:
+  - Flight numbers
+  - Departure times
+  - Prices in selected currency
+  - Distance between airports
+
+- Top 5 alternative options for both outbound and return flights
+
+- Price history visualizations showing trends over time
+
+## 💡 Advanced Features
+
+- **Retry Mechanism**: Built-in exponential backoff strategy for API requests
+- **Customizable Search**: Flexible parameters for fine-tuning search criteria
+- **Multi-currency Support**: Select your preferred currency for price display
+- **Price History Analysis**: Track price changes to identify booking trends
+
+## 🔮 Future Enhancements
+
+- Web interface for easier interaction
+- Automated price alerts via email
+- Mobile application for on-the-go flight searches
+- Expanded airline support beyond Ryanair
+- Machine learning for price prediction
+
+---
+
+Ryanair Flight Search Tool represents a modern approach to flight booking, empowering travelers with data-driven insights into airline pricing. Through its integration with Ryanair's API and sophisticated price tracking capabilities, the system provides a comprehensive solution for finding the best flight deals available.
