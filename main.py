@@ -7,11 +7,11 @@ from utils.airport_utils import load_airports
 
 # 📅 Parametry wyszukiwania lotów
 source_airport = "EDI"
-destination_airport = "GDN"  # POZ, GDN, BER
-date_from = "2025-04-20"
-date_to = "2025-05-30"
-return_date_from = "2025-04-01"
-return_date_to = "2025-05-31"
+destination_airport = "POZ"  # POZ, GDN, BER
+date_from = "2025-05-21"
+date_to = "2025-07-30"
+return_date_from = "2025-05-21"
+return_date_to = "2025-07-30"
 currency = "GBP"
 
 load_airports()
